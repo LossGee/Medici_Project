@@ -8,7 +8,7 @@ using UnityEngine;
 // 2. 이동하기
 public class Bullet : MonoBehaviour
 {
-    public float speed = 8.0f;
+    public float speed = 10.0f;
 
     // Start is called before the first frame update
     void Start()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
+[proto]
 step1 : 아래로 계속 이동하고 싶다. 
     1. 방향 구하기
     2. 이동하기 
@@ -15,13 +16,21 @@ step3 : 30% 확률로 플레이어 방향, 나머지 확률로 아래방향으로 정하고 싶다.
           그렇지 않으면, 아래 방향으로 이동한다. 
     1. 30% 확률로 플레이어 방향, 나머지 확률로 아래 방향
     2. 태어날 때 방향을 정하고 그 방향으로 계속 이동
+
+
+[alpha]
+ - 목표: 적이 다른 물체와 충돌했을 때 폭발효과를 발생시키고 싶다. 
+ - 순서: 1. 적이 다른 물체와 충돌했으니까
+         2. 폭발 효과 공장에서 폭발효과를 하나 만들어야 한다. 
+         3. 폭발 효과를 발생(위치)시키고 싶다. 
+ - 필요속성: 폭발 공장 주소(외부에서 값을 넣어준다)
  */
 
 public class Enemy : MonoBehaviour
 {
     public float speed = 5.0f;
     Vector3 dir;
-    
+    public GameObject explosionFactory; 
 
     // Start is called before the first frame update
     void Start()
@@ -60,11 +69,19 @@ public class Enemy : MonoBehaviour
         transform.position += dir * speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision collision)
     {
+        // 폭발 공장에서 폭발을 하나 생산한다. 
+        GameObject explosion = Instantiate(explosionFactory);
+        // 폭발 효과를 발생(위치)시키고 싶다. 
+        explosion.transform.position = transform.position;
+
         // 너 죽고
-        Destroy(other.gameObject);
+        Destroy(collision.gameObject);
         // 나 죽자
         Destroy(gameObject);
+
+        //
     }
+    
 }
