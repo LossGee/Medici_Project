@@ -21,6 +21,7 @@ public class AnimTest : MonoBehaviour
         {
             // Idle 동작
             anim.SetTrigger("Idle");        // Animated blemd 과정이 들어감
+            //anim.CrossFade();         // CrossFade()를 사용할 수도 있음. 
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {

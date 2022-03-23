@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour
             RaycastHit hitInfo;     // 부디진 대상의 정보를 저장할 변수
             if (Physics.Raycast(ray, out hitInfo))
             {
-                print(hitInfo.transform.name);
+                //print(hitInfo.transform.name);
                 // 총알자국을 부빚힌 곳에 남기고싶다.
                 GameObject bImpact = Instantiate(blmpactFactory);
                 bImpact.transform.position = hitInfo.point;
