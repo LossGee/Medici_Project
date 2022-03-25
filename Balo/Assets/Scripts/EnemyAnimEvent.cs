@@ -23,6 +23,17 @@ public class EnemyAnimEvent : MonoBehaviour
     {
         // 공격 애니메이션이 종료되는 순간
         enemy.OnEnemyAttackFinished();
-
     }
+
+    public void OnEnemyReactFinished()
+    {
+        // 리액션 애니메이션이 종료되는 순간
+        enemy.OnEnemyReactFinished();
+    }
+    public void OnEnemyDeathFinished()
+    {
+        // 죽음 애니메이션이 종료되는 순간
+        enemy.OnEnemyDeathFinished();
+    }
+
 }

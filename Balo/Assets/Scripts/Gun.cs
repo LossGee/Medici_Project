@@ -10,7 +10,9 @@ using UnityEngine;
 // 4. "Ray를 발사"하고, 만일 부딪힌 물체가 있으면 피격이펙트 표시하기
 public class Gun : MonoBehaviour
 {
-    public GameObject blmpactFactory;   // 총알공장 
+    public GameObject bImpactFactory;           // 총알공장 
+    public GameObject bImpactForEnemyFactory;
+    public int damage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -46,18 +48,35 @@ public class Gun : MonoBehaviour
             {
                 //print(hitInfo.transform.name);
                 // 총알자국을 부빚힌 곳에 남기고싶다.
-                GameObject bImpact = Instantiate(blmpactFactory);
+                GameObject bImpact;
+                bool isEnemy = hitInfo.collider.CompareTag("Enemy");
+                if (isEnemy)
+                {
+                    bImpact = Instantiate(bImpactForEnemyFactory);
+                }
+                else
+                { 
+                    bImpact = Instantiate(bImpactFactory);
+                }
+                //bImpact = Instantiate(isEnemy ? bImpactForEnemyFactory : bImpactFactory);     // 3항 연산자로 위 내용 한번에 표한하기 
+
                 bImpact.transform.position = hitInfo.point;
                 bImpact.transform.forward = hitInfo.normal;     // 부딪힌 대상의 법선 벡터(normal)
+
+                // 만약 Enemy라면 
+                if (isEnemy)
+                {
+                    Enemy enemy = hitInfo.collider.GetComponent<Enemy>();
+
+                    // 너 총에 맞았어 라고 알려주고 싶다.
+                    // 데미지 값를 알려주고 싶다.
+                    if (enemy != null)
+                    {
+                        enemy.TryDamage(damage);
+                    }
+                }
             }
 
-
-            
-
-
         }
-
-
-
     }
 }

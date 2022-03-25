@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 currentPos = transform.position;
         currentPos += dir * speed * Time.deltaTime;
         currentPos.x = Mathf.Clamp(currentPos.x, -3f, 3f);
-        currentPos.y = Mathf.Clamp(currentPos.y, -3.5f, 5.5f);
+        currentPos.y = Mathf.Clamp(currentPos.y, -5f, 5f);
 
         transform.position = currentPos;
          

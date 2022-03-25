@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     {
         state = State.PATROL;
         agent = GetComponent<NavMeshAgent>();
-        targetIndex = 0;
+        targetIndex = UnityEngine.Random.Range(0, PathInfo.Instance.wayPoints.Length);
     }
 
     // Update is called once per frame
@@ -57,7 +57,8 @@ public class Enemy : MonoBehaviour
     private void UpdatePatrol()
     {
         // 반경 5m안에 Plyer가 있다면
-        Collider[] cols = Physics.OverlapSphere(transform.position, detectedRadius);
+        //[for문 사용]
+        /*Collider[] cols = Physics.OverlapSphere(transform.position, detectedRadius);
         for (int i = 0 ; i<cols.Length ; i++)
         {
             if (cols[i].name.Contains("Player"))
@@ -67,8 +68,17 @@ public class Enemy : MonoBehaviour
                 chaseTarget = cols[i].gameObject;
                 return;
             }
-        }
+        }*/
 
+        //[LayerMask 사용하는 방법]
+        /*int layerMask = 1 << LayerMask.NameToLayer("Player");
+        Collider[] cols = Physics.OverlapSphere(transform.position, detectedRadius, layerMask);
+        if (cols.Length > 0)
+        {
+            state = State.CHASE;
+            chaseTarget = cols[];
+        }
+*/
         Vector3 target = PathInfo.Instance.wayPoints[targetIndex].transform.position;
 
         // 길을 순환이동 하고 싶다.
